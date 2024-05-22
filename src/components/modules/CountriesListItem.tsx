@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 const CountriesListItem = () => {
+   
   return (
     <div className="flex flex-col m-3 shadow-md rounded w-full md:w-[300px]">
       <Image
@@ -8,7 +9,7 @@ const CountriesListItem = () => {
         alt="name"
         width={300}
         height={150}
-        className="rounded-t-md w-full"
+        className="rounded-t-md w-full h-auto"
       />
       <div className="ml-3 m-2">
         <p className="font-extrabold my-3">title</p>
