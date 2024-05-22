@@ -21,7 +21,7 @@ const CountriesList = () => {
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between my-4">
+    <div className="flex flex-wrap items-center justify-between my-4 w-full min-h-screen">
       {loading ? (
         countries.length > 0 &&
         countries.map((item: any, index: number) => (
