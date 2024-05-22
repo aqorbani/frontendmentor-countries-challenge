@@ -1,4 +1,4 @@
-import React from "react";
+import { FaRegMoon } from "react-icons/fa";
 
 const Main = ({
   children,
@@ -7,9 +7,12 @@ const Main = ({
 }>) => {
   return (
     <div>
-      <nav className="w-full bg-gray-100 p-5 flex items-center justify-between">
+      <nav className="w-full bg-gray-200 p-5 flex items-center justify-between shadow">
         <div className="font-extrabold">where in the world?</div>
-        <div>dark mode</div>
+        <div className="flex justify-center items-center">
+          <FaRegMoon />
+           dark mode
+        </div>
       </nav>
       {children}
     </div>
