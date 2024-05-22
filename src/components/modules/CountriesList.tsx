@@ -16,7 +16,6 @@ const CountriesList = () => {
     setLoading(false);
     const res: any = await axios.get("https://restcountries.com/v3.1/all");
     setCountries(res.data);
-    console.log(res.data.length);
     setLoading(true);
   };
 
