@@ -14,8 +14,10 @@ const CountriesListItem = ({
   region: string;
   capital: string;
 }) => {
+  const url = name.split(' ').join('-')
+
   return (
-    <Link href={`country/` + name} className="w-full md:w-[300px]">
+    <Link href={`country/` + url} className="w-full md:w-[300px]">
       <div className="flex flex-col my-3 bg-white shadow-md rounded w-full md:w-[300px]">
         <Image
           src={flags}
@@ -26,9 +28,13 @@ const CountriesListItem = ({
         />
         <div className="ml-3 m-2">
           <p className="font-extrabold my-3 text-[2vw] md:text-[1vw]">{name}</p>
-          <p className="text-[1.5vw] md:text-[0.8vw]">population: {population}</p>
+          <p className="text-[1.5vw] md:text-[0.8vw]">
+            population: {population}
+          </p>
           <p className="text-[1.5vw] md:text-[0.8vw]">region : {region}</p>
-          <p className="text-[1.5vw] md:text-[0.8vw] mb-2">capital : {capital}</p>
+          <p className="text-[1.5vw] md:text-[0.8vw] mb-2">
+            capital : {capital}
+          </p>
         </div>
       </div>
     </Link>
