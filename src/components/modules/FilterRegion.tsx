@@ -22,8 +22,7 @@ const FilterRegion = ({
         <option value="Africa">Africa</option>
         <option value="Oceania">Oceania</option>
         <option value="Americas">Americas</option>
-        <option value="Polar">Polar</option>
-        <option value="Antarctic Ocean">Antarctic Ocean</option>
+        <option value="Antarctic">Antarctic</option>
       </select>
     </div>
   );

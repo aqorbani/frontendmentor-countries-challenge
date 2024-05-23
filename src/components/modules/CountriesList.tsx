@@ -27,6 +27,9 @@ const CountriesList = ({
     if (region !== "" || search !== "") {
       getCountriesData(region, search);
     }
+    if (region === "" && search === "") {
+      getCountriesData("", "");
+    }
   }, [region, search]);
 
   const getCountriesData = async (region: string, search: string) => {
