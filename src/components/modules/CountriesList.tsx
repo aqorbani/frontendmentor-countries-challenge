@@ -5,27 +5,40 @@ import axios from "axios";
 import {
   axiosGetConfig,
   axiosGetConfig_FilterByRegion,
+  axiosGetConfig_SearchByName,
 } from "@/utils/axiosconfig";
 
-const CountriesList = ({ region }: { region: string }) => {
+const CountriesList = ({
+  region,
+  search,
+}: {
+  region: string;
+  search: string;
+}) => {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (countries.length <= 0) {
-      getCountriesData(region);
+      getCountriesData(region, search);
     }
   });
 
   useEffect(() => {
-    if (region !== "") {
-      getCountriesData(region);
+    if (region !== "" || search !== "") {
+      getCountriesData(region, search);
     }
-  }, [region]);
+  }, [region, search]);
 
-  const getCountriesData = async (region: string) => {
-    if (region !== "") {
+  const getCountriesData = async (region: string, search: string) => {
+    if (region !== "" && search === "") {
       setLoading(false);
       const res: any = await axios(axiosGetConfig_FilterByRegion(region));
+      setCountries(res.data);
+      setLoading(true);
+      return;
+    } else if (region === "" && search !== "") {
+      setLoading(false);
+      const res: any = await axios(axiosGetConfig_SearchByName(search));
       setCountries(res.data);
       setLoading(true);
       return;
