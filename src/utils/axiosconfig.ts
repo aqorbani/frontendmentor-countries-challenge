@@ -6,3 +6,12 @@ export function axiosGetConfig() {
   };
   return config;
 }
+
+export function axiosGetConfig_FullName(name: string) {
+  let config = {
+    method: "get",
+    url: "https://restcountries.com/v3.1/name/" + name + "?fullText=true",
+    timeout: 150000,
+  };
+  return config;
+}
