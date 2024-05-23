@@ -15,3 +15,12 @@ export function axiosGetConfig_FullName(name: string) {
   };
   return config;
 }
+
+export function axiosGetConfig_FilterByRegion(region: string) {
+  let config = {
+    method: "get",
+    url: "https://restcountries.com/v3.1/region/" + region,
+    timeout: 150000,
+  };
+  return config;
+}

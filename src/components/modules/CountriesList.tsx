@@ -2,22 +2,40 @@
 import { useEffect, useState } from "react";
 import CountriesListItem from "./CountriesListItem";
 import axios from "axios";
-import { axiosGetConfig } from "@/utils/axiosconfig";
+import {
+  axiosGetConfig,
+  axiosGetConfig_FilterByRegion,
+} from "@/utils/axiosconfig";
 
-const CountriesList = () => {
+const CountriesList = ({ region }: { region: string }) => {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (countries.length <= 0) {
-      getCountriesData();
+      getCountriesData(region);
     }
   });
 
-  const getCountriesData = async () => {
-    setLoading(false);
-    const res: any = await axios(axiosGetConfig());
-    setCountries(res.data);
-    setLoading(true);
+  useEffect(() => {
+    if (region !== "") {
+      getCountriesData(region);
+    }
+  }, [region]);
+
+  const getCountriesData = async (region: string) => {
+    if (region !== "") {
+      setLoading(false);
+      const res: any = await axios(axiosGetConfig_FilterByRegion(region));
+      setCountries(res.data);
+      setLoading(true);
+      return;
+    } else {
+      setLoading(false);
+      const res: any = await axios(axiosGetConfig());
+      setCountries(res.data);
+      setLoading(true);
+      return;
+    }
   };
 
   return (
