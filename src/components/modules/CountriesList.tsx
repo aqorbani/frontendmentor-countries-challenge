@@ -46,7 +46,7 @@ const CountriesList = ({
       setLoading(false);
       const res: any = await axios(axiosGetConfig_FilterByRegion(region));
 
-      const filtereddata = res?.data?.filter((item) => {
+      const filtereddata = res?.data?.filter((item: any) => {
         return item?.name?.common?.toLowerCase().includes(search.toLowerCase());
       });
 
