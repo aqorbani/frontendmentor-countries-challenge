@@ -1,5 +1,6 @@
 "use client";
 import { axiosGetConfig, axiosGetConfig_FullName } from "@/utils/axiosconfig";
+import { sp_latin } from "@/utils/number";
 import { createSlug } from "@/utils/slug";
 import axios from "axios";
 import Image from "next/image";
@@ -85,7 +86,7 @@ const Information = ({ name }: { name: string }) => {
     <div className="bg-gray-50 dark:bg-gray-800 text-black dark:text-white min-h-screen">
       <div className="w-full p-5">
         <button
-          className="flex justify-center items-center text-[2.5vw] md:text-[1vw] btn-shadow py-1 px-3 rounded"
+          className="flex justify-center items-center text-[2.5vw] md:text-[1vw] btn-shadow py-1 px-3 rounded bg-white dark:bg-gray-700 text-black dark:text-white"
           onClick={() => router.back()}
         >
           <FaArrowLeftLong className="mx-2" />
@@ -121,7 +122,9 @@ const Information = ({ name }: { name: string }) => {
                 </p>
                 <p className="my-1 text-[2.2vw] md:text-[1vw]">
                   <span className="font-bold">Population : </span>
-                  {country[0]?.population}
+                  {country[0]?.population
+                    ? sp_latin(country[0]?.population)
+                    : country[0]?.population}
                 </p>
                 <p className="my-1 text-[2.2vw] md:text-[1vw]">
                   <span className="font-bold">Region : </span>
@@ -171,7 +174,7 @@ const Information = ({ name }: { name: string }) => {
                     borders.map((item: any, index: number) => (
                       <button
                         key={index}
-                        className="flex justify-center items-center text-[2.5vw] md:text-[1vw] btn-shadow py-1 px-3 rounded my-3 mr-2"
+                        className="flex justify-center items-center text-[2.5vw] md:text-[1vw] btn-shadow py-1 px-3 rounded my-3 mr-2 bg-white dark:bg-gray-700 text-black dark:text-white"
                       >
                         <Link
                           href={`/country/` + createSlug(item?.name?.common)}

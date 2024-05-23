@@ -1,3 +1,4 @@
+import { sp_latin } from "@/utils/number";
 import { createSlug } from "@/utils/slug";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,10 +29,10 @@ const CountriesListItem = ({
         <div className="ml-3 m-2">
           <p className="font-extrabold my-3 text-[2vw] md:text-[1vw]">{name}</p>
           <p className="text-[1.5vw] md:text-[0.8vw]">
-            population: {population}
+            population: {sp_latin(population)}
           </p>
           <p className="text-[1.5vw] md:text-[0.8vw]">region : {region}</p>
-          <p className="text-[1.5vw] md:text-[0.8vw] mb-2">
+          <p className="text-[1.5vw] md:text-[0.8vw] mb-5">
             capital : {capital}
           </p>
         </div>
