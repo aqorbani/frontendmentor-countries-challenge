@@ -42,6 +42,17 @@ const CountriesList = ({
       setCountries(res.data);
       setLoading(true);
       return;
+    } else if (region !== "" && search !== "") {
+      setLoading(false);
+      const res: any = await axios(axiosGetConfig_FilterByRegion(region));
+
+      const filtereddata = res?.data?.filter((item) => {
+        return item?.name?.common?.toLowerCase().includes(search.toLowerCase());
+      });
+
+      setCountries(filtereddata);
+      setLoading(true);
+      return;
     } else {
       setLoading(false);
       const res: any = await axios(axiosGetConfig());
@@ -52,7 +63,7 @@ const CountriesList = ({
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between my-4 w-full min-h-screen">
+    <div className="flex flex-wrap justify-between my-4 w-full min-h-screen">
       {loading ? (
         countries.length > 0 &&
         countries.map((item: any, index: number) => (
