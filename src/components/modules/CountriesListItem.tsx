@@ -1,3 +1,4 @@
+import { createSlug } from "@/utils/slug";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,10 +15,8 @@ const CountriesListItem = ({
   region: string;
   capital: string;
 }) => {
-  const url = name.split(' ').join('-')
-
   return (
-    <Link href={`country/` + url} className="w-full md:w-[300px]">
+    <Link href={`/country/` + createSlug(name)} className="w-full md:w-[300px]">
       <div className="flex flex-col my-3 bg-white shadow-md rounded w-full md:w-[300px]">
         <Image
           src={flags}

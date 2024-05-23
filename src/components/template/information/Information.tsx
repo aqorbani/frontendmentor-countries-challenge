@@ -1,13 +1,19 @@
 "use client";
+import { createSlug } from "@/utils/slug";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const Information = ({ name }: { name: string }) => {
+  const router = useRouter();
   const [country, setCountry] = useState<any[]>([]);
   const [nativeName, setNativeName] = useState([]);
   const [currencies, setCurrencies] = useState([]);
   const [languages, setLanguages] = useState([]);
+  const [borders, setBorders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -57,70 +63,125 @@ const Information = ({ name }: { name: string }) => {
 
     setLanguages(languages);
 
+    await getBorderCountries(res?.data[0]?.borders);
+
     setLoading(true);
+  };
+
+  const getBorderCountries = async (BrdersList: Array<string>) => {
+    const res: any = await axios.get("https://restcountries.com/v3.1/all");
+
+    let bordersList: any = [];
+    for (let key in BrdersList) {
+      res?.data?.map(
+        (item: object, index: number) =>
+          BrdersList[key] + "" === res?.data[index]?.cca3 + "" &&
+          bordersList.push(item)
+      );
+    }
+    setBorders(bordersList);
   };
 
   return (
     <div>
+      <div className="w-full p-5">
+        <button
+          className="flex justify-center items-center text-[2.5vw] md:text-[1vw] btn-shadow py-1 px-3 rounded"
+          onClick={() => router.back()}
+        >
+          <FaArrowLeftLong className="mx-2" />
+          Back
+        </button>
+      </div>
       {!loading ? (
         <p>loading</p>
       ) : (
-        <div className="flex flex-col md:flex-row justify-center items-center">
-          <div className="w-full md:w-2/5 flex flex-col justify-center items-center min-h-[calc(100vh-200px)]">
+        <div className="flex flex-col md:flex-row justify-center items-center p-5">
+          <div className="w-full md:w-2/5 flex flex-col justify-center items-center mb-5">
             <Image
               src={country[0]?.flags.png}
               alt={name}
               width={200}
               height={120}
-              className="w-[500px] h-[300px]"
+              className="w-full max-w-[500px] max-h-[300px]"
             />
           </div>
-          <div className="w-full md:w-3/5 flex flex-col justify-center items-start min-h-[calc(100vh-200px)]">
-            <h3 className="font-extrabold my-3 text-[2.5vw] md:text-[1.8vw]">
+          <div className="w-full md:w-3/5 flex flex-col justify-center items-start">
+            <h3 className="font-extrabold my-3 text-[3.5vw] md:text-[1.8vw]">
               {country[0]?.name.common}
             </h3>
-            <div className="flex w-full">
+            <div className="flex flex-col md:flex-row w-full">
               <div className="w-full">
-                <p className="mt-3 text-[1.5vw] md:text-[1vw]">
-                  Native Name :{" "}
+                <p className="mt-3 text-[2.2vw] md:text-[1vw]">
+                  <span className="font-bold">Native Name : </span>
                   {nativeName.map((item, index) =>
                     nativeName.length === index + 1 ? item : item + " - "
                   )}
                 </p>
-                <p className="my-1 text-[1.5vw] md:text-[1vw]">
-                  Population : {country[0]?.population}
+                <p className="my-1 text-[2.2vw] md:text-[1vw]">
+                  <span className="font-bold">Population : </span>
+                  {country[0]?.population}
                 </p>
-                <p className="my-1 text-[1.5vw] md:text-[1vw]">
-                  Region : {country[0]?.region}
+                <p className="my-1 text-[2.2vw] md:text-[1vw]">
+                  <span className="font-bold">Region : </span>
+                  {country[0]?.region}
                 </p>
-                <p className="my-1 text-[1.5vw] md:text-[1vw]">
-                  Sub Region : {country[0]?.subregion}
+                <p className="my-1 text-[2.2vw] md:text-[1vw]">
+                  <span className="font-bold">Sub Region : </span>
+                  {country[0]?.subregion}
                 </p>
-                <p className="my-1 text-[1.5vw] md:text-[1vw]">
-                  Capital : {country[0]?.capital}
+                <p className="my-1 text-[2.2vw] md:text-[1vw]">
+                  <span className="font-bold">Capital : </span>
+                  {country[0]?.capital}
                 </p>
               </div>
               <div className="w-full">
-                <p className="mt-3 text-[1.5vw] md:text-[1vw]">
-                  Top Level Domain :{" "}
+                <p className="mt-1 md:mt-3 text-[2.2vw] md:text-[1vw]">
+                  <span className="font-bold">Top Level Domain : </span>
+
                   {country[0]?.tld.map((item: any, index: number) =>
                     country[0]?.tld.length === index + 1 ? item : item + " - "
                   )}
                 </p>
-                <p className="mt-3 text-[1.5vw] md:text-[1vw]">
-                  Currencies :{" "}
+                <p className="my-1 text-[2.2vw] md:text-[1vw]">
+                  <span className="font-bold">Currencies : </span>
+
                   {currencies.map((item, index) =>
                     currencies.length === index + 1 ? item : item + " - "
                   )}
                 </p>
-                <p className="mt-3 text-[1.5vw] md:text-[1vw]">
-                  Languages :{" "}
+                <p className="my-1 text-[2.2vw] md:text-[1vw]">
+                  <span className="font-bold">Languages : </span>
+
                   {languages.map((item, index) =>
                     languages.length === index + 1 ? item : item + " - "
                   )}
                 </p>
               </div>
             </div>
+
+            {borders && (
+              <>
+                <p className="my-1 text-[2.2vw] md:text-[1vw]">
+                  <span className="font-bold">Border countries : </span>
+                </p>
+                <span className="flex">
+                  {borders.length > 0 &&
+                    borders.map((item: any, index: number) => (
+                      <button
+                        key={index}
+                        className="flex justify-center items-center text-[2.5vw] md:text-[1vw] btn-shadow py-1 px-3 rounded my-3 mr-2"
+                      >
+                        <Link
+                          href={`/country/` + createSlug(item?.name?.common)}
+                        >
+                          {item?.name?.common}
+                        </Link>
+                      </button>
+                    ))}
+                </span>
+              </>
+            )}
           </div>
         </div>
       )}
