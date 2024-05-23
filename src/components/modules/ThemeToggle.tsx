@@ -22,8 +22,11 @@ const ThemeToggle = () => {
   }, [darkMode]);
 
   return (
-    <div className="text-black dark:text-red-700" onClick={() => setDarkMode(!darkMode)}>
-      ThemeToggle
+    <div
+      className="text-black dark:text-white cursor-pointer"
+      onClick={() => setDarkMode(!darkMode)}
+    >
+      {darkMode ? <FaMoon /> : <BsSunFill />}
     </div>
   );
 };

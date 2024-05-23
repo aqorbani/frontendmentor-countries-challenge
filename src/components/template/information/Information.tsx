@@ -82,7 +82,7 @@ const Information = ({ name }: { name: string }) => {
   };
 
   return (
-    <div>
+    <div className="bg-gray-50 dark:bg-gray-800 text-black dark:text-white min-h-screen">
       <div className="w-full p-5">
         <button
           className="flex justify-center items-center text-[2.5vw] md:text-[1vw] btn-shadow py-1 px-3 rounded"

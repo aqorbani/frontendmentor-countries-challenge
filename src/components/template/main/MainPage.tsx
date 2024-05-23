@@ -9,7 +9,7 @@ const MainPage = () => {
   const [search, setSearch] = useState("");
 
   return (
-    <div className="flex flex-col justify-center items-center p-4 w-full md:w-[90vw] bg-gray-100">
+    <div className="flex flex-col justify-center items-center p-4 w-full md:w-[90vw] bg-gray-100 dark:bg-gray-800 text-black">
       <div className="w-full flex flex-col md:flex-row justify-between items-center">
         <div className="w-full md:w-1/4">
           <Searchbox search={search} setSearch={setSearch} />

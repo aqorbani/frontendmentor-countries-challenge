@@ -17,7 +17,7 @@ const CountriesListItem = ({
 }) => {
   return (
     <Link href={`/country/` + createSlug(name)} className="w-full md:w-[300px]">
-      <div className="flex flex-col my-3 bg-white shadow-md rounded w-full md:w-[300px]">
+      <div className="flex flex-col my-3 bg-white dark:bg-gray-700  text-black dark:text-white shadow-md rounded-md w-full md:w-[300px]">
         <Image
           src={flags}
           alt={name}
