@@ -1,4 +1,5 @@
 "use client";
+import { axiosGetConfig } from "@/utils/axiosconfig";
 import { createSlug } from "@/utils/slug";
 import axios from "axios";
 import Image from "next/image";
@@ -15,6 +16,8 @@ const Information = ({ name }: { name: string }) => {
   const [languages, setLanguages] = useState([]);
   const [borders, setBorders] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  console.log(process.env.API_URL || "");
 
   useEffect(() => {
     if (country.length <= 0) {
@@ -69,7 +72,7 @@ const Information = ({ name }: { name: string }) => {
   };
 
   const getBorderCountries = async (BrdersList: Array<string>) => {
-    const res: any = await axios.get("https://restcountries.com/v3.1/all");
+    const res: any = await axios(axiosGetConfig());
 
     let bordersList: any = [];
     for (let key in BrdersList) {
@@ -94,7 +97,9 @@ const Information = ({ name }: { name: string }) => {
         </button>
       </div>
       {!loading ? (
-        <p>loading</p>
+        <div className="w-full my-16 flex justify-center items-center">
+          <div className="loader"></div>
+        </div>
       ) : (
         <div className="flex flex-col md:flex-row justify-center items-center p-5">
           <div className="w-full md:w-2/5 flex flex-col justify-center items-center mb-5">
@@ -160,7 +165,7 @@ const Information = ({ name }: { name: string }) => {
               </div>
             </div>
 
-            {borders && (
+            {borders && country[0]?.borders && (
               <>
                 <p className="my-1 text-[2.2vw] md:text-[1vw]">
                   <span className="font-bold">Border countries : </span>

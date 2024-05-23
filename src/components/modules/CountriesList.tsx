@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import CountriesListItem from "./CountriesListItem";
 import axios from "axios";
+import { axiosGetConfig } from "@/utils/axiosconfig";
 
 const CountriesList = () => {
   const [countries, setCountries] = useState([]);
@@ -14,7 +15,7 @@ const CountriesList = () => {
 
   const getCountriesData = async () => {
     setLoading(false);
-    const res: any = await axios.get("https://restcountries.com/v3.1/all");
+    const res: any = await axios(axiosGetConfig());
     setCountries(res.data);
     setLoading(true);
   };
@@ -34,7 +35,9 @@ const CountriesList = () => {
           />
         ))
       ) : (
-        <p>loading</p>
+        <div className="w-full flex justify-center items-center -mt-32">
+          <div className="loader"></div>
+        </div>
       )}
     </div>
   );

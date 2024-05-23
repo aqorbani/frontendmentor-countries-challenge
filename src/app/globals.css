@@ -5,3 +5,18 @@
 .btn-shadow{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
+
+
+.loader {
+    height: 4px;
+    width: 130px;
+    --c:no-repeat linear-gradient(#868686 0 0);
+    background: var(--c),var(--c),#d2d2d2;
+    background-size: 60% 100%;
+    animation: l16 3s infinite;
+  }
+  @keyframes l16 {
+    0%   {background-position:-150% 0,-150% 0}
+    66%  {background-position: 250% 0,-150% 0}
+    100% {background-position: 250% 0, 250% 0}
+  }
