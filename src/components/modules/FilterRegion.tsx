@@ -13,7 +13,7 @@ const FilterRegion = ({
     <div className="flex justify-center items-center rounded bg-white dark:bg-gray-700  text-gray-400 dark:text-white outline-transparent my-4 w-full">
       <select
         name="region"
-        className="w-full p-3 rounded bg-white dark:bg-gray-700  text-gray-400 dark:text-white"
+        className="text-[2.2vw] md:text-[0.8vw] w-full p-3 rounded bg-white dark:bg-gray-700  text-gray-400 dark:text-white"
         onChange={(e) => filterRegion(e as any)}
       >
         <option value="">Filter by Region</option>
