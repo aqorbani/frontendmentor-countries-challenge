@@ -18,10 +18,10 @@ const CountriesList = ({
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    if (countries.length <= 0) {
+    if (countries.length <= 0 && region === "" && search === "") {
       getCountriesData(region, search);
     }
-  });
+  }, []);
 
   useEffect(() => {
     if (region !== "" || search !== "") {
@@ -53,7 +53,14 @@ const CountriesList = ({
         return item?.name?.common?.toLowerCase().includes(search.toLowerCase());
       });
 
+      if (filtereddata.length <= 0) {
+        setCountries([]);
+        setLoading(true);
+        return;
+      }
+
       setCountries(filtereddata);
+
       setLoading(true);
       return;
     } else {
@@ -68,17 +75,24 @@ const CountriesList = ({
   return (
     <div className="flex flex-wrap justify-between my-4 w-full min-h-screen">
       {loading ? (
-        countries.length > 0 &&
-        countries.map((item: any, index: number) => (
-          <CountriesListItem
-            key={index}
-            name={item.name.common}
-            flags={item.flags.png}
-            population={item.population}
-            region={item.region}
-            capital={item.capital}
-          />
-        ))
+        countries.length > 0 ? (
+          countries.map((item: any, index: number) => (
+            <CountriesListItem
+              key={index}
+              name={item.name.common}
+              flags={item.flags.png}
+              population={item.population}
+              region={item.region}
+              capital={item.capital}
+            />
+          ))
+        ) : (
+          <div className="w-full flex justify-center items-center -mt-32">
+            <div className="text-gray-400 font-semibold text-center">
+              No country found
+            </div>
+          </div>
+        )
       ) : (
         <div className="w-full flex justify-center items-center -mt-32">
           <div className="loader"></div>

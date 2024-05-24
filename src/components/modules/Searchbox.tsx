@@ -14,7 +14,7 @@ const Searchbox = ({
   useEffect(() => {
     const delayonChange = setTimeout(() => {
       setSearch(text);
-    }, 2000);
+    }, 1500);
 
     return () => clearTimeout(delayonChange);
   }, [text]);
