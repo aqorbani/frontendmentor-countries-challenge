@@ -16,7 +16,7 @@ const CountriesList = ({
   search: string;
 }) => {
   const [countries, setCountries] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   //control first load data
   useEffect(() => {
