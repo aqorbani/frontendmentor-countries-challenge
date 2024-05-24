@@ -17,12 +17,15 @@ const CountriesList = ({
 }) => {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  //control first load data
   useEffect(() => {
     if (countries.length <= 0 && region === "" && search === "") {
       getCountriesData(region, search);
     }
   }, []);
 
+  //control load data after user searching or filtering
   useEffect(() => {
     if (region !== "" || search !== "") {
       getCountriesData(region, search);
@@ -32,20 +35,24 @@ const CountriesList = ({
     }
   }, [region, search]);
 
+  //all of the data fetching is handle here
   const getCountriesData = async (region: string, search: string) => {
     if (region !== "" && search === "") {
+      //filter by region
       setLoading(false);
       const res: any = await axios(axiosGetConfig_FilterByRegion(region));
       setCountries(res.data);
       setLoading(true);
       return;
     } else if (region === "" && search !== "") {
+      //filter by search text
       setLoading(false);
       const res: any = await axios(axiosGetConfig_SearchByName(search));
       setCountries(res.data);
       setLoading(true);
       return;
     } else if (region !== "" && search !== "") {
+      //filter by search text and region
       setLoading(false);
       const res: any = await axios(axiosGetConfig_FilterByRegion(region));
 
@@ -64,6 +71,7 @@ const CountriesList = ({
       setLoading(true);
       return;
     } else {
+      //normal data fetching without any filtering our searching
       setLoading(false);
       const res: any = await axios(axiosGetConfig());
       setCountries(res.data);
@@ -73,7 +81,11 @@ const CountriesList = ({
   };
 
   return (
-    <div className="flex flex-wrap justify-between my-4 w-full min-h-screen">
+    <div
+      className={`flex flex-wrap ${
+        countries.length < 3 ? "justify-center gap-5" : "justify-between"
+      } my-4 w-full min-h-screen`}
+    >
       {loading ? (
         countries.length > 0 ? (
           countries.map((item: any, index: number) => (

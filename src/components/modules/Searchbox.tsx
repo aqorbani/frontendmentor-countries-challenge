@@ -11,6 +11,7 @@ const Searchbox = ({
 }) => {
   const [text, setText] = useState("");
 
+  //delay for user has enough time for typing and after search function start
   useEffect(() => {
     const delayonChange = setTimeout(() => {
       setSearch(text);

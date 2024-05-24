@@ -18,18 +18,25 @@ const Information = ({ name }: { name: string }) => {
   const [borders, setBorders] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //get data function call
   useEffect(() => {
     if (country.length <= 0) {
       getCountriesData();
     }
   });
 
+  // get single country data with exact searching by name
   const getCountriesData = async () => {
+
+    //loading show
     setLoading(false);
+
+    //fetching data
     const res: any = await axios(axiosGetConfig_FullName(name));
     setCountry(res.data as any);
     setNativeName(res?.data[0]?.name?.nativeName as any);
 
+    //change native names structure for show
     let nativeNames: any = [];
     for (let key in res?.data[0]?.name?.nativeName as any) {
       const childObject = res?.data[0]?.name?.nativeName[key];
@@ -38,9 +45,9 @@ const Information = ({ name }: { name: string }) => {
 
       nativeNames.push(commonName);
     }
-
     setNativeName(nativeNames);
 
+    //change countries structure for show
     let currencies: any = [];
     for (let key in res?.data[0]?.currencies as any) {
       const childObject = res?.data[0]?.currencies[key];
@@ -49,9 +56,9 @@ const Information = ({ name }: { name: string }) => {
 
       currencies.push(commonName);
     }
-
     setCurrencies(currencies);
 
+    //change languages structure for show
     let languages: any = [];
     for (let key in res?.data[0]?.languages as any) {
       const childObject = res?.data[0]?.languages[key];
@@ -60,17 +67,22 @@ const Information = ({ name }: { name: string }) => {
 
       languages.push(commonName);
     }
-
     setLanguages(languages);
 
+    //get border countries data
     await getBorderCountries(res?.data[0]?.borders);
 
+    //loading show ended
     setLoading(true);
   };
 
+  //function for get border countries data
   const getBorderCountries = async (BrdersList: Array<string>) => {
+
+    //fetching data
     const res: any = await axios(axiosGetConfig());
 
+    //change border countries structure for show
     let bordersList: any = [];
     for (let key in BrdersList) {
       res?.data?.map(
