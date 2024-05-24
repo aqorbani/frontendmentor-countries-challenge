@@ -113,10 +113,11 @@ const Information = ({ name }: { name: string }) => {
         <div className="flex flex-col md:flex-row justify-center items-center p-5">
           <div className="w-full md:w-2/5 flex flex-col justify-center items-center mb-5">
             <Image
-              src={country[0]?.flags.png}
+              src={country[0]?.flags.png ? country[0]?.flags.png : "/img/img-placeholder.jpg"}
               alt={name}
               width={200}
               height={120}
+              priority={true}
               className="w-full max-w-[500px] max-h-[300px]"
             />
           </div>
